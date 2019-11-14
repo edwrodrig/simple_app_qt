@@ -9,6 +9,8 @@ class Common
 
     private static $operativeSystem = null;
 
+    private static $qtDirectory = null;
+
     public static function releaseData()
     {
         if (is_null(self::$releaseData)) {
@@ -62,6 +64,37 @@ class Common
         }
     }
 
+    public static function findOperativeSystem() : bool {
+        self::$operativeSystem = strtolower(php_uname('s'));
+        fprintf(STDOUT,"Operative system [%s]\n", self::$operativeSystem);
+        return true;
+    }
+
+    public static function getOperativeSystem() : string {
+        if ( is_null(self::$operativeSystem) ) {
+            self::findOperativeSystem();
+        }
+        return self::$operativeSystem;
+    }
+
+    public static function findQtDirectory() : bool {
+        if ( self::getOperativeSystem() === 'linux' ) {
+            self::$qtDirectory = "/home/edwin/Qt/5.13.0/gcc_64";
+            fprintf(STDOUT,"Qt directory [%s]\n", self::$qtDirectory);
+            return true;
+        } else {
+            fprintf(STDERR, "Qt directory not found!\n");
+            return false;
+        }
+    }
+
+    public static function getQtDirectory() : string {
+        if ( is_null(self::$qtDirectory) ) {
+            self::findQtDirectory();
+        }
+        return self::$qtDirectory;
+    }
+
     public static function executableName()
     {
         return self::$releaseData['executable_name'];
@@ -87,6 +120,14 @@ class Common
     public static function linuxRunScriptFilename() : string
     {
         return "run_" . self::executableName() . ".sh";
+    }
+
+    public static function findQmake() : string {
+        $qmake_bin = $qt_dir . "/bin/qmake";
+        if ( !file_exists($qmake_bin) ) {
+            fprintf(STDERR, "QMake does not exists at [%s]\n", $qmake_bin);
+            exit(1);
+        }
     }
 
 
