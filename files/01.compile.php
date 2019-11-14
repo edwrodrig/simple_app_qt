@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
-require_once __DIR__ . '/common.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use edwrodrig\qt_app_builder\Common;
 
 $os = Common::operativeSystem();
 $release_data = Common::releaseData();
@@ -36,8 +39,7 @@ printf("Calling qmake...\n");
 passthru(sprintf("%s -config release \"CONFIG-=debug_and_release_folder\" %s",
 	$qmake_bin,
 	__DIR__
-		. DIRECTORY_SEPARATOR
-		. ".."
+    . DIRECTORY_SEPARATOR
 		. DIRECTORY_SEPARATOR
 		. $release_data["qt_project_file"]
 	), $return_var);

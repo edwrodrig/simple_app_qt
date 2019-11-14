@@ -5,7 +5,7 @@
   "qt_project_file" : "simple_test.pro",
   "build_binary_dir" : "build",
   "deploy_dir" : "deploy",
-  "executable_name" : "simple_app",
+  "executable_name" : "simple_test",
   "executable_dir" : "app",
   "binary_name" : {
     "win32" : "app/simple_test.exe",

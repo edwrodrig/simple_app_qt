@@ -1,3 +1,6 @@
 /deploy
 /compilation
 /bosque*
+/composer.phar
+/composer.lock
+/vendor
