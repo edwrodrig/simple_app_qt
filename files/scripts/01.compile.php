@@ -5,5 +5,5 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use edwrodrig\qt_app_builder\variable\Variables;
 
-Variables::operativeSystem()->find();
-Variables::qtDirectory()->find();
+Variables::OperativeSystem()->find();
+Variables::QtDirectory()->find();
