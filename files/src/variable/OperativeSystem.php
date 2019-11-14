@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace edwrodrig\qt_app_builder\variable;
 
+/**
+ * Class OperativeSystem
+ * Variable that hold the Operative system
+ * @package edwrodrig\qt_app_builder\variable
+ */
 class OperativeSystem extends Variable
 {
 

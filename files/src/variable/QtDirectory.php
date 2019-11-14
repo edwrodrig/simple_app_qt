@@ -3,7 +3,11 @@ declare(strict_types=1);
 
 namespace edwrodrig\qt_app_builder\variable;
 
-
+/**
+ * Class OperativeSystem
+ * Variable that hold the Qt installation directory
+ * @package edwrodrig\qt_app_builder\variable
+ */
 class QtDirectory extends Variable
 {
     public function getVariableName(): string
@@ -13,7 +17,7 @@ class QtDirectory extends Variable
 
     public function find() : bool {
         if ( Variables::operativeSystem()->get() === 'linux' ) {
-            $this->value = "/home/edwin/Qt/5.13.0/gcc_64";
+            $this->value = "/home/edwin/Qt/5.13.0";
             $this->printFound();
             return true;
         } else {
