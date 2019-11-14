@@ -1,0 +1,33 @@
+#!/bin/sh
+
+DEPLOY_DIR=deploy/bosque
+BASEDIR=$(dirname "$0")
+SOURCE=bosque.app
+DEPLOYQT="macdeployqt"
+
+if [ ! -e $SOURCE ]; then
+  echo "Compiled executable not exists [$SOURCE]"
+  exit 1
+fi
+
+rm -rf deploy
+mkdir -p $DEPLOY_DIR
+
+echo "Copying executable binary [$SOURCE] to [$DEPLOY_DIR]"
+cp -Rf $SOURCE $DEPLOY_DIR
+
+if [ -e $BASEDIR/../addbin ]; then
+  echo "Adding external applications"
+  $BASEDIR/../addbin osx $DEPLOY_DIR/bosque.app/Contents/MacOS/
+fi
+
+echo "Retrieving Qt dependencies"
+$DEPLOYQT $DEPLOY_DIR/$SOURCE -dmg
+if [ $? -ne 0 ]; then
+  echo "Error at deploying dependencies"
+  rm -prf $DEPLOY_DIR
+  exit $?
+fi
+
+exit 0
+

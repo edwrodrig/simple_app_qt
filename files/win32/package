@@ -1,0 +1,14 @@
+#!/bin/sh
+
+BASEDIR=$(dirname "$0")
+SOURCE=bosque
+VERSION=$(cat $BASEDIR/../data/version | tr . _ | tr -d \")
+COMPRESS="/c/Program Files/7-zip/7z"
+
+if [ ! -d $SOURCE ]; then
+  echo "Deploy directory not exists";
+  exit 1;
+fi
+
+"$COMPRESS" a -tzip bosque_$VERSION\_win32.zip bosque
+

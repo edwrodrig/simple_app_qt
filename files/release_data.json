@@ -1,0 +1,14 @@
+{
+  "name": "Simple test",
+  "description" :  "Something",
+  "version" : "1.0.0",
+  "qt_project_file" : "simple_test.pro",
+  "build_binary_dir" : "build",
+  "deploy_dir" : "deploy",
+  "executable_name" : "simple_app",
+  "executable_dir" : "app",
+  "binary_name" : {
+    "win32" : "app/simple_test.exe",
+    "linux" : "app/simple_test"
+  }
+}
