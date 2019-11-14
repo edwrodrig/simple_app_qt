@@ -36,6 +36,24 @@ abstract class Variable
     }
 
     /**
+     * Just a version of {@see Variable::find() find} that doesn't not throw.
+     * This print a message to STDOUT when the variable is not found.
+     * @return bool
+     */
+    public function tryToFind() : bool {
+        try {
+            $this->find();
+            return true;
+
+        } catch ( \Throwable $exception ) {
+            fprintf(STDOUT,"%s NOT FOUND!\n",
+                $this->getVariableName()
+            );
+        }
+        return false;
+    }
+
+    /**
      * Get the variable.
      *
      * It automatically try to {@see Variable::find() find} if it is not found
@@ -51,7 +69,7 @@ abstract class Variable
     }
 
     public function printFound() {
-        fprintf(STDOUT,"%s [%s]\n",
+        fprintf(STDOUT,"%s FOUND [%s]\n",
             $this->getVariableName(),
             $this->value
         );
