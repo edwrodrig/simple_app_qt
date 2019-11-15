@@ -7,6 +7,8 @@ use edwrodrig\qt_app_builder\variable\VariableNotFoundException;
 use edwrodrig\qt_app_builder\variable\Variables;
 
 try {
+    Variables::BuildDirectory()->set(__DIR__);
+    Variables::BuildDirectory()->find();
     Variables::OperativeSystem()->find();
     Variables::QtDirectory()->find();
     Variables::QMake()->find();

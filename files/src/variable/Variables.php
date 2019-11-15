@@ -15,6 +15,7 @@ use Exception;
  * @method static QtDirectory QtDirectory()
  * @method static HomeDirectory HomeDirectory()
  * @method static QMake QMake()
+ * @method static BuildDirectory BuildDirectory()
  */
 class Variables
 {

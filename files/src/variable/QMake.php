@@ -18,23 +18,30 @@ class QMake extends Variable
 
     public function find() : bool {
         if ( Variables::OperativeSystem()->get() === 'linux' ) {
-            $qtDirectory = Variables::QtDirectory()->get();
-            $qmake = $qtDirectory .  "/gcc_64/bin/qmake";
-
-            if ( !file_exists($qmake) )
-                $this->throwNotFound(sprintf("You must check if qmake is available in Qt bin directory [%s]", $qmake));
-
-            exec($qmake . " -v", $output, $return);
-            if ( $return != 0 )
-                $this->throwNotFound(sprintf("Qmake does not work [%s]", $qmake));
-
-            $this->value = $qmake;
-            $this->printFound();
-            return true;
-
+            return $this->findLinux();
         } else {
             $this->throwNotFound("NOT IMPLEMENTED FOR THIS OPERATIVE SYSTEM");
             return false;
         }
+    }
+
+    /**
+     * @return bool
+     * @throws VariableNotFoundException
+     */
+    protected function findLinux() : bool {
+        $qtDirectory = Variables::QtDirectory()->get();
+        $qmake = $qtDirectory .  "/gcc_64/bin/qmake";
+
+        if ( !file_exists($qmake) )
+            $this->throwNotFound(sprintf("You must check if qmake is available in Qt bin directory [%s]", $qmake));
+
+        exec($qmake . " -v", $output, $return);
+        if ( $return != 0 )
+            $this->throwNotFound(sprintf("Qmake does not work [%s]", $qmake));
+
+        $this->value = $qmake;
+        $this->printFound();
+        return true;
     }
 }
