@@ -18,7 +18,7 @@ class QtDirectory extends Variable
     public function find() : bool {
         if ( Variables::OperativeSystem()->get() === 'linux' ) {
             $homeDirectory = Variables::HomeDirectory()->get();
-            $this->value = $homeDirectory . DIRECTORY_SEPARATOR . "Qt/5.13.0";
+            $this->value = $homeDirectory . "/Qt/5.13.0";
             $this->printFound();
             return true;
         } else {
