@@ -13,8 +13,10 @@ try {
     Variables::OperativeSystem()->find();
     Variables::QtDirectory()->find();
     Variables::QMake()->find();
+    Variables::Make()->find();
 
     Variables::Qmake()->call(__DIR__ . "/../../simple_test.pro");
+    Variables::Make()->call();
 } catch ( VariableNotFoundException $exception ) {
     fprintf(STDERR, "%s [%s]", $exception->getMessage(), $exception->getRecoverMessage());
 }
