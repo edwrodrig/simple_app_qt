@@ -27,8 +27,7 @@ class CompilationDirectory extends Variable
         $compilationDirectory = Variables::BuildDirectory()->get() . "/compilation";
 
         if ( !is_dir($compilationDirectory) ) {
-            printf("Compilation directory NOT FOUND!! ...CREATING!\n", $compilationDirectory);
-            mkdir($compilationDirectory);
+            $this->throwNotFound("You must compile your Qt project");
         }
         $this->value = $compilationDirectory;
         $this->printFound();
@@ -47,5 +46,7 @@ class CompilationDirectory extends Variable
             printf("Old Compilation directory FOUND at [%s]...removing!\n", $compilationDirectory);
             passthru(sprintf("rm -rf %s", $compilationDirectory));
         }
+        printf("Creating compilation directory!\n", $compilationDirectory);
+        mkdir($compilationDirectory);
     }
 }

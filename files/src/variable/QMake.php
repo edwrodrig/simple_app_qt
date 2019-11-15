@@ -44,4 +44,33 @@ class QMake extends Variable
         $this->printFound();
         return true;
     }
+
+    /**
+     * Call qmake with a .pro file
+     * @param string $qmakeProjectFile the .pro file
+     * @return bool
+     * @throws VariableNotFoundException
+     * @throws \Exception
+     */
+    public function call(string $qmakeProjectFile) : bool {
+        $compilationDirectory = Variables::CompilationDirectory()->get();
+        printf("Change directory to [%s]\n", $compilationDirectory);
+        chdir($compilationDirectory);
+        $qmake = Variables::Qmake()->get();
+        printf("Calling Qmake...\n");
+        $command = sprintf(
+            "%s -config release \"CONFIG-=debug_and_release_folder\" %s",
+            $qmake,
+            $qmakeProjectFile
+        );
+
+        printf("Command to execute [%s]\n", $command);
+        passthru($command, $return_var);
+
+        if ( $return_var != 0 ) {
+            throw new \Exception(sprintf("Error generation Makefile qith QMake\n"));
+        }
+        return true;
+
+    }
 }
