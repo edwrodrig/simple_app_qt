@@ -20,8 +20,13 @@ class QMake extends Variable
         if ( Variables::OperativeSystem()->get() === 'linux' ) {
             $qtDirectory = Variables::QtDirectory()->get();
             $qmake = $qtDirectory .  "/gcc_64/bin/qmake";
+
             if ( !file_exists($qmake) )
                 $this->throwNotFound(sprintf("You must check if qmake is available in Qt bin directory [%s]", $qmake));
+
+            exec($qmake . " -v", $output, $return);
+            if ( $return != 0 )
+                $this->throwNotFound(sprintf("Qmake does not work [%s]", $qmake));
 
             $this->value = $qmake;
             $this->printFound();
