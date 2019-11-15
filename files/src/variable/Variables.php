@@ -16,6 +16,7 @@ use Exception;
  * @method static HomeDirectory HomeDirectory()
  * @method static QMake QMake()
  * @method static BuildDirectory BuildDirectory()
+ * @method static CompilationDirectory CompilationDirectory()
  */
 class Variables
 {
@@ -50,7 +51,6 @@ class Variables
             } else {
                 throw new Exception(sprintf("Variable [%s] NOT IMPLEMENTED", $name));
             }
-
         }
 
         return self::$variableMap[$name];
