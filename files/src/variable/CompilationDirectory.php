@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace edwrodrig\qt_app_builder\variable;
 
-
+/**
+ * Class CompilationDirectory
+ * Compilation directory is where tue qmake script will do their stuff.
+ * Use the {@see CompilationDirectory::set() set method} to prepare the compilation directory, deleting if there is a current one.
+ * @package edwrodrig\qt_app_builder\variable
+ */
 class CompilationDirectory extends Variable
 {
     /**
@@ -33,7 +38,7 @@ class CompilationDirectory extends Variable
 
     /**
      * Set a compilation directory.
-     * If exists then clean
+     * If exists then clean with rf command
      * @throws VariableNotFoundException
      */
     public function set() {
