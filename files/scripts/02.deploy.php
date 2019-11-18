@@ -14,7 +14,9 @@ try {
     Variables::QtDirectory()->find();
 
     Variables::DeployDirectory()->set();
+    Variables::BinaryFilename()->set("simple_test");
     Variables::DeployDirectory()->find();
+    Variables::BinaryFilename()->find();
 
 } catch ( VariableNotFoundException $exception ) {
     fprintf(STDERR, "%s [%s]", $exception->getMessage(), $exception->getRecoverMessage());

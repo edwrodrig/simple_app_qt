@@ -18,6 +18,7 @@ use Exception;
  * @method static BuildDirectory BuildDirectory()
  * @method static CompilationDirectory CompilationDirectory()
  * @method static DeployDirectory DeployDirectory()
+ * @method static BinaryFilename BinaryFilename()
  * @method static Make Make()
  */
 class Variables
