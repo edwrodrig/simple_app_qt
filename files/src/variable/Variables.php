@@ -20,6 +20,7 @@ use Exception;
  * @method static DeployDirectory DeployDirectory()
  * @method static BinaryFilename BinaryFilename()
  * @method static BinaryCompilationFilepath BinaryCompilationFilepath()
+ * @method static BinaryDeployFilepath BinaryDeployFilepath()
  * @method static Make Make()
  */
 class Variables

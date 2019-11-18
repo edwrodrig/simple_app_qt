@@ -17,6 +17,7 @@ try {
     Variables::BinaryFilename()->set("simple_test");
     Variables::DeployDirectory()->find();
     Variables::BinaryCompilationFilepath()->copyToDeployDirectory();
+    Variables::BinaryDeployFilepath()->changeModeToExecutable();
 
 } catch ( VariableNotFoundException $exception ) {
     fprintf(STDERR, "%s [%s]", $exception->getMessage(), $exception->getRecoverMessage());

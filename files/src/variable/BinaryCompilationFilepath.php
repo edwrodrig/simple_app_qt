@@ -28,7 +28,7 @@ class BinaryCompilationFilepath  extends Variable
         $binaryCompilationFilepath = $compilationDir . '/app/' . $binaryFilename;
 
         if ( !file_exists($binaryCompilationFilepath) ) {
-            $this->throwNotFound("Check if your compilations is right");
+            $this->throwNotFound("Check if your compilation is right");
         }
         $this->value = $binaryCompilationFilepath;
         $this->printFound();
