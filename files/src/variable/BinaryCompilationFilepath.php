@@ -34,4 +34,17 @@ class BinaryCompilationFilepath  extends Variable
         $this->printFound();
         return true;
     }
+
+    /**
+     * Copy the compilation binary to Deploy Directory.
+     *
+     * @throws VariableNotFoundException
+     */
+    public function copyToDeployDirectory() {
+        $source = Variables::BinaryCompilationFilepath()->get();
+        $targetDirectory = Variables::DeployDirectory()->get();
+        $target = $targetDirectory . "/" . Variables::BinaryFilename()->get();
+        copy( $source, $target);
+        printf("Copying [%s] to [%s]\n", $source, $target);
+    }
 }
