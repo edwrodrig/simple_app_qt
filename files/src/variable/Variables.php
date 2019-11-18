@@ -22,6 +22,7 @@ use Exception;
  * @method static BinaryCompilationFilepath BinaryCompilationFilepath()
  * @method static BinaryDeployFilepath BinaryDeployFilepath()
  * @method static Make Make()
+ * @method static QtDeploy QtDeploy()
  */
 class Variables
 {

@@ -19,6 +19,8 @@ try {
     Variables::BinaryCompilationFilepath()->copyToDeployDirectory();
     Variables::BinaryDeployFilepath()->changeModeToExecutable();
 
+    Variables::QtDeploy()->call();
+
 } catch ( VariableNotFoundException $exception ) {
     fprintf(STDERR, "%s [%s]", $exception->getMessage(), $exception->getRecoverMessage());
 }
