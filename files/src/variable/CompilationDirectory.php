@@ -6,7 +6,7 @@ namespace edwrodrig\qt_app_builder\variable;
 
 /**
  * Class CompilationDirectory
- * Compilation directory is where tue qmake script will do their stuff.
+ * Compilation directory is where the qmake script will do their stuff.
  * Use the {@see CompilationDirectory::set() set method} to prepare the compilation directory, deleting if there is a current one.
  * @package edwrodrig\qt_app_builder\variable
  */

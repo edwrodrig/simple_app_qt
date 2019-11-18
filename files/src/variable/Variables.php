@@ -17,6 +17,7 @@ use Exception;
  * @method static QMake QMake()
  * @method static BuildDirectory BuildDirectory()
  * @method static CompilationDirectory CompilationDirectory()
+ * @method static DeployDirectory DeployDirectory()
  * @method static Make Make()
  */
 class Variables
