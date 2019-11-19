@@ -28,9 +28,12 @@ class LddLineParser
      * @param $librarySection
      * @return string
      */
-    public function getLibraryPathFromLibrarySection($librarySection) : string {
+    public function getLibraryPathFromLibrarySection($librarySection) : ?string {
         $section = explode(" ", $librarySection);
-        $libraryPath = $section[0] ?? null;
+        $libraryPath = trim($section[0] ?? "(");
+        if ( strpos($libraryPath, "(") === 0 ) {
+            return null;
+        }
         return $libraryPath;
     }
 
