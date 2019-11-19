@@ -23,7 +23,7 @@ class QtDirectory extends Variable
             $this->printFound();
             return true;
         } else if ( $os === "windows nt" ) {
-            $this->value = "/c/Qt/5.12.6";
+            $this->value = "c:/Qt/5.12.6";
             $this->printFound();
             return true;
         } else {

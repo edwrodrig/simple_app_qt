@@ -3,4 +3,5 @@
 /bosque*
 /composer.phar
 /composer.lock
+/composer-setup.php
 /vendor

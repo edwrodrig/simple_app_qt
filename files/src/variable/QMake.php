@@ -21,7 +21,7 @@ class QMake extends Variable
         $qtDirectory = Variables::QtDirectory()->get();
         $qmake = null;
         if ( $os === 'linux' ) $qmake = $qtDirectory .  "/gcc_64/bin/qmake";
-        else if ( $os === 'windows nt') $qmake = $qtDirectory .  "/mingw74_64/bin/qmake";
+        else if ( $os === 'windows nt') $qmake = $qtDirectory .  "/mingw73_64/bin/qmake.exe";
          else {
             $this->throwNotFound("NOT IMPLEMENTED FOR THIS OPERATIVE SYSTEM");
             return false;

@@ -26,20 +26,14 @@ class Make extends Variable
     }
 
     public function find() : bool {
-        if ( Variables::OperativeSystem()->get() === 'linux' ) {
-            return $this->findLinux();
+        $os =  Variables::OperativeSystem()->get();
+        if ( $os === 'linux' ) $make = "make";
+	else if ( $os === 'windows nt' ) {
+        	$make = "c:/Qt/Tools/mingw730_64/bin/mingw32-make.exe";
         } else {
             $this->throwNotFound("NOT IMPLEMENTED FOR THIS OPERATIVE SYSTEM");
             return false;
         }
-    }
-
-    /**
-     * @return bool
-     * @throws VariableNotFoundException
-     */
-    protected function findLinux() : bool {
-        $make = "make";
 
         exec($make . " -v", $output, $return);
         if ( $return != 0 )
