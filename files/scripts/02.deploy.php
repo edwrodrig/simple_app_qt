@@ -16,6 +16,7 @@ try {
     Variables::DeployDirectory()->set();
     Variables::BinaryFilename()->set("simple_test");
     Variables::DeployDirectory()->find();
+    Variables::QtPluginsDirectory()->find();
     Variables::BinaryCompilationFilepath()->copyToDeployDirectory();
     Variables::BinaryDeployFilepath()->changeModeToExecutable();
 
