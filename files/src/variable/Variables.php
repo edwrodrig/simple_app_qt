@@ -24,6 +24,7 @@ use Exception;
  * @method static Make Make()
  * @method static QtDeploy QtDeploy()
  * @method static QtPluginsDirectory QtPluginsDirectory()
+ * @method static LaunchScriptFilename LaunchScriptFilename()
  */
 class Variables
 {
