@@ -26,13 +26,13 @@ class QtDeploy extends Variable
             return "";
         } else if ( $os === 'windows nt') {
             $qtDirectory = Variables::QtDirectory()->get();
-            $deployQt = $qtDirectory .  "/mingw74_64/bin/windeployqt.exe";
+            $deployQt = $qtDirectory .  "/mingw73_64/bin/windeployqt.exe";
 
 
             if ( !file_exists($deployQt) )
                 $this->throwNotFound(sprintf("You must check if windeployqt is available in Qt bin directory [%s]", $deployQt));
 
-            exec($deployQt . " -v", $output, $return);
+            exec($deployQt . " -h", $output, $return);
             if ( $return != 0 )
                 $this->throwNotFound(sprintf("Windeployqt does not work [%s]", $deployQt));
 

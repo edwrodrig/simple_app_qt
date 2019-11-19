@@ -28,7 +28,9 @@ class BinaryFilename  extends Variable
         if ( !isset($this->notCheckedValue) ) {
             $this->throwNotFound("You must set a binary filename");
         }
-        $this->value = $this->notCheckedValue;
+	$this->value = $this->notCheckedValue;
+	if ( Variables::OperativeSystem()->get() === "windows nt" )
+		$this->value .= ".exe";
         $this->printFound();
         return true;
     }
