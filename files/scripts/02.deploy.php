@@ -21,6 +21,10 @@ try {
 
     Variables::QtDeploy()->call();
 
+    $process = new \edwrodrig\qt_app_builder\process\GetSharedDependencies();
+    $process->setBinaryFile(Variables::BinaryDeployFilepath()->get());
+    $process->process();
+
 } catch ( VariableNotFoundException $exception ) {
     fprintf(STDERR, "%s [%s]", $exception->getMessage(), $exception->getRecoverMessage());
 }
