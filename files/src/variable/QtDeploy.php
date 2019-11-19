@@ -20,9 +20,25 @@ class QtDeploy extends Variable
     }
 
     public function find() : bool {
-        if ( Variables::OperativeSystem()->get() === 'linux' ) {
+        $os = Variables::OperativeSystem()->get();
+        if ( $os === 'linux' ) {
             printf("Linux do not have a deploy executable, using custom implementation!!\n");
             return "";
+        } else if ( $os === 'windows nt') {
+            $qtDirectory = Variables::QtDirectory()->get();
+            $deployQt = $qtDirectory .  "/mingw74_64/bin/windeployqt.exe";
+
+
+            if ( !file_exists($deployQt) )
+                $this->throwNotFound(sprintf("You must check if windeployqt is available in Qt bin directory [%s]", $deployQt));
+
+            exec($deployQt . " -v", $output, $return);
+            if ( $return != 0 )
+                $this->throwNotFound(sprintf("Windeployqt does not work [%s]", $deployQt));
+
+            $this->value = $deployQt;
+            $this->printFound();
+            return true;
         } else {
             $this->throwNotFound("NOT IMPLEMENTED FOR THIS OPERATIVE SYSTEM");
             return false;
@@ -38,8 +54,11 @@ class QtDeploy extends Variable
      */
     public function call() : bool
     {
-        if (Variables::OperativeSystem()->get() === 'linux') {
+        $os = Variables::OperativeSystem()->get();
+        if ( $os === 'linux') {
             return $this->callLinux();
+        } else if ( $os === 'windows nt') {
+            return $this->callWindowsNt();
         } else {
             $this->throwNotFound("NOT IMPLEMENTED FOR THIS OPERATIVE SYSTEM");
             return false;
@@ -54,6 +73,26 @@ class QtDeploy extends Variable
         $getSharedDependencies->process();
         $launchScript = new LaunchScript();
         $launchScript->create();
+        return true;
+    }
+
+    public function callWindowsNt() {
+        $binaryDeployFilepath = Variables::BinaryDeployFilepath()->get();
+        $deployQt = Variables::QtDeploy()->get();
+
+        printf("Calling WinDeployQt...\n");
+        $command = sprintf(
+            "%s %s",
+            $deployQt,
+            $binaryDeployFilepath
+        );
+
+        printf("Command to execute [%s]\n", $command);
+        passthru($command, $return_var);
+
+        if ( $return_var != 0 ) {
+            throw new \Exception(sprintf("Error deploying with WinDeployQt\n"));
+        }
         return true;
 
     }

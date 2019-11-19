@@ -17,21 +17,15 @@ class QMake extends Variable
     }
 
     public function find() : bool {
-        if ( Variables::OperativeSystem()->get() === 'linux' ) {
-            return $this->findLinux();
-        } else {
+        $os = Variables::OperativeSystem()->get();
+        $qtDirectory = Variables::QtDirectory()->get();
+        $qmake = null;
+        if ( $os === 'linux' ) $qmake = $qtDirectory .  "/gcc_64/bin/qmake";
+        else if ( $os === 'windows nt') $qmake = $qtDirectory .  "/mingw74_64/bin/qmake";
+         else {
             $this->throwNotFound("NOT IMPLEMENTED FOR THIS OPERATIVE SYSTEM");
             return false;
         }
-    }
-
-    /**
-     * @return bool
-     * @throws VariableNotFoundException
-     */
-    protected function findLinux() : bool {
-        $qtDirectory = Variables::QtDirectory()->get();
-        $qmake = $qtDirectory .  "/gcc_64/bin/qmake";
 
         if ( !file_exists($qmake) )
             $this->throwNotFound(sprintf("You must check if qmake is available in Qt bin directory [%s]", $qmake));
@@ -43,6 +37,8 @@ class QMake extends Variable
         $this->value = $qmake;
         $this->printFound();
         return true;
+
+
     }
 
     /**
