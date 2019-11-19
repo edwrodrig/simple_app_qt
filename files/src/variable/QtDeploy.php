@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace edwrodrig\qt_app_builder\variable;
 
+use edwrodrig\qt_app_builder\process\GetSharedDependencies;
+use edwrodrig\qt_app_builder\process\LaunchScript;
+
 /**
  * Class QtDeploy
  * Variable that hold the Qt deploy directory
@@ -46,6 +49,11 @@ class QtDeploy extends Variable
 
     public function callLinux() {
         printf("Retrieving needed Qt libraries...");
+        $getSharedDependencies = new GetSharedDependencies();
+        $getSharedDependencies->setBinaryFile(Variables::BinaryDeployFilepath()->get());
+        $getSharedDependencies->process();
+        $launchScript = new LaunchScript();
+        $launchScript->create();
         return true;
 
     }
