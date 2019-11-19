@@ -21,9 +21,9 @@
             "edwrodrig\\qt_app_builder\\" : "src/"
         }
     },
-    "autoload-dev" : {
-        "psr-4" : {
-            "test\\" : "tests/src/"
-        }
+  "autoload-dev" : {
+    "psr-4": {
+      "test\\edwrodrig\\qt_app_builder\\": "tests/"
     }
+  }
 }
