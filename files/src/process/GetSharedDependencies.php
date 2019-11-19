@@ -6,6 +6,7 @@ namespace edwrodrig\qt_app_builder\process;
 
 use edwrodrig\qt_app_builder\util\LddLineParser;
 use edwrodrig\qt_app_builder\variable\Variables;
+use mysql_xdevapi\Exception;
 
 /**
  * Class GetSharedDependencies
@@ -75,17 +76,54 @@ class GetSharedDependencies
                 throw new \Exception(sprintf("Qt library DOES NOT EXISTS![%s]", $library));
 
             $libraryBasename = basename($library);
-            printf("Installing Qt library [%s]...\n", $libraryBasename);
+            printf("Installing Qt library [%s]...", $libraryBasename);
             copy($library, $deployDirectory . "/" . $libraryBasename);
+            printf("DONE!\n");
         }
     }
 
+
+    public function installQtPlugins() {
+        $plugins = [
+                "audio",
+                "bearer",
+                "iconengines",
+                "imageformats",
+                "mediaservice",
+                "platforms",
+                "playlistformats",
+                "sqldrivers"
+        ];
+        $deployDirectory = Variables::DeployDirectory()->get();
+        $qtPluginsDirectory = Variables::QtPluginsDirectory()->get();
+        printf("Qt plugins target dir [%s]\n", $deployDirectory);
+        foreach ( $plugins as $plugin) {
+            $pluginSourceDirectory = $qtPluginsDirectory . "/" . $plugin;
+            if ( !is_dir($pluginSourceDirectory) ) {
+                throw new \Exception("Plugin NOT FOUND!! [%s]". $pluginSourceDirectory);
+            }
+            printf("Installing Qt plugin [%s]...", $plugin);
+            passthru(sprintf(
+                "cp -rf %s %s",
+                $pluginSourceDirectory,
+                $deployDirectory
+            ));
+            passthru(sprintf(
+                "rm -f %s",
+                $deployDirectory . "/" . $plugin . "/*.debug"
+            ));
+
+
+            printf("DONE!\n");
+        }
+    }
     /**
      * Calling the process
      * @throws \Exception
      */
     public function process() {
         $this->installQtSharedLibraries();
+        $this->installQtPlugins();
 
     }
 
