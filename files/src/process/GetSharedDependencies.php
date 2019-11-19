@@ -4,11 +4,21 @@ declare(strict_types=1);
 
 namespace edwrodrig\qt_app_builder\process;
 
-
+/**
+ * Class GetSharedDependencies
+ * This process retrieve the shared dependencies from the current system and copy it in the same folder than the {@see GetSharedDependencies::$binaryFile binary file}.
+ *
+ * @package edwrodrig\qt_app_builder\process
+ */
 class GetSharedDependencies
 {
     private $binaryFile;
 
+    /**
+     * Run the ldd command yo get the dependencies files
+     * @param string $binaryFile
+     * @throws \Exception
+     */
     private function runLdd(string $binaryFile) {
         $lddCommand = sprintf("ldd -r %s", $binaryFile);
         printf("Running command [%s]...\n", $lddCommand);
@@ -18,11 +28,20 @@ class GetSharedDependencies
         }
     }
 
+    /**
+     * Set the Qt binary file that you want to get the shared dependencies
+     * @param $binaryFile
+     * @return $this
+     */
     public function setBinaryFile($binaryFile) : self {
         $this->binaryFile = $binaryFile;
         return $this;
     }
 
+    /**
+     * Calling the process
+     * @throws \Exception
+     */
     public function process() {
         $this->runLdd($this->binaryFile);
     }
