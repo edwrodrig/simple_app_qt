@@ -37,22 +37,17 @@ class LddLineParser
         return $libraryPath;
     }
 
-    public function parse(string $line) {
+    public function isQtLib(?string $libraryPath) : bool {
+        if ( is_null($libraryPath) ) return false;
+        if ( strpos($libraryPath, "/Qt/") !== FALSE ) return true;
+        return false;
+    }
 
-
-        /**
-         * $tokens = explode("=>", $line);
-        $final_token = trim($tokens[1] ?? $tokens[0]);
-        $tokens = explode(" ", $final_token);
-        $lib = $tokens[0] ?? null;
-        if ( is_null($lib) ) continue;
-        if ( !file_exists($lib) ) continue;
-        if ( strpos($lib, "/Qt/") !== FALSE ) {
-
-        printf("\t[%s]\n", $lib);
-        copy($lib, $target_dir . DIRECTORY_SEPARATOR . basename($lib));
-        }
-         */
+    public function parse(string $line) : ?string {
+        $section = $this->getLibrarySectionFromLine($line);
+        $libraryPath = $this->getLibraryPathFromLibrarySection($section);
+        if ( $this->isQtLib($libraryPath) ) return $libraryPath;
+        return null;
     }
 
 }

@@ -31,4 +31,17 @@ class LddLineParserTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @testWith [false, "/lib/x86_64-linux-gnu/libexpat.so.1"]
+     *           [false, null]
+     *           [true, "/home/edwin/Qt/5.13.0/gcc_64/lib/libQt5Gui.so.5"]
+     * @param $expected
+     * @param $libraryPath
+     */
+    public function testIsQtLib($expected, $libraryPath) {
+        $parser = new LddLineParser();
+        $actual = $parser->isQtLib($libraryPath);
+        $this->assertEquals($expected, $actual);
+    }
+
 }
